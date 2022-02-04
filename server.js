@@ -11,6 +11,9 @@ const db = mysql.createConnection(
   },
   console.log(`Connected to the employees_db database.`)
 );
+const quit = () => {
+  process.exit();
+}
 const viewAllEmployees = () => {
   db.query(`SELECT employees.id, employees.first_name, employees.last_name, roles.title, departments.department_name as department, roles.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employees LEFT JOIN employees AS manager ON employees.manager_id = manager.id JOIN roles ON employees.role_id = roles.id JOIN departments ON roles.department_id = departments.id`, (err, res) => {
     //db.query(`SELECT employees.first_name, employees.last_name, roles.title, roles.salary, departments.department_name, employees.manager_id, FROM employees JOIN roles ON employees.role_id = roles.id JOIN departments ON roles.department_id = departments.id`, (err, res) => {
